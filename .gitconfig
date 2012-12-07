@@ -1,0 +1,21 @@
+[user]
+        name = Leonid Kornilenko
+        email = 
+[core]
+        autocrlf = input
+        safecrlf = true
+        editor = vim
+[alias]
+        co = checkout
+        ci = commit
+        st = status
+        br = branch
+        undo = reset --hard
+        lg = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=iso8601
+        today = log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative
+        hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
+        lg1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+[mergetool]
+        keepBackup = false
+[color]
+        ui = true
