@@ -1,0 +1,14 @@
+minimap
+react
+emmet
+pigments
+linter
+linter-eslint
+atom-beautify
+file-icons
+language-babel
+vim-mode-plus
+highlight-selected
+autoclose-html
+git-log
+git-history
