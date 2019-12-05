@@ -1,57 +1,67 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 "=====================================================
-" Vundle settings
+" Vim-Plug settings
 "=====================================================
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/Vundle.vim'              " let Vundle manage Vundle, required
+Plug 'junegunn/vim-plug'              " Minimalist Vim Plugin Manager
 "---------=== Code/project navigation ===-------------
-Plugin 'scrooloose/nerdtree'            " A tree explorer plugin for vim
-Plugin 'Shougo/unite.vim'               " Navigation between buffers and files
-Plugin 'majutsushi/tagbar'              " Class/module browser
+Plug 'scrooloose/nerdtree'            " A tree explorer plugin for vim
+Plug 'Shougo/unite.vim'               " Navigation between buffers and files
+Plug 'majutsushi/tagbar'              " Class/module browser
 
 "------------------=== Other ===----------------------
-Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
-Plugin 'vim-airline/vim-airline-themes' " This is the official theme repository for vim-airline
-Plugin 'fisadev/FixedTaskList.vim'      " Pending tasks list
-Plugin 'rosenfeld/conque-term'          " Consoles as buffers
-Plugin 'tpope/vim-surround'             " Parentheses, brackets, quotes, XML tags, and more
-Plugin 'tpope/vim-fugitive'             " Git wrapper
+Plug 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes' " This is the official theme repository for vim-airline
+Plug 'fisadev/FixedTaskList.vim'      " Pending tasks list
+Plug 'rosenfeld/conque-term'          " Consoles as buffers
+Plug 'tpope/vim-surround'             " Parentheses, brackets, quotes, XML tags, and more
+Plug 'tpope/vim-fugitive'             " Git wrapper
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'               " A command-line fuzzy finder
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "--------------=== Snippets support ===---------------
-Plugin 'garbas/vim-snipmate'            " Snippets manager
-Plugin 'MarcWeber/vim-addon-mw-utils'   " Dependencies #1
-Plugin 'tomtom/tlib_vim'                " Dependencies #2
-Plugin 'honza/vim-snippets'             " Snippets repo
+Plug 'garbas/vim-snipmate'            " Snippets manager
+Plug 'MarcWeber/vim-addon-mw-utils'   " Dependencies #1
+Plug 'tomtom/tlib_vim'                " Dependencies #2
+Plug 'honza/vim-snippets'             " Snippets repo
+Plug 'dense-analysis/ale'             " ALE (Asynchronous Lint Engine) is a plugin providing linting (syntax checking and semantic errors)
 
 "---------------=== Languages support ===-------------
-Plugin 'scrooloose/syntastic'           " Syntax checking plugin for Vim
-Plugin 'tpope/vim-commentary'           " Comment stuff out
-Plugin 'mitsuhiko/vim-sparkup'          " Sparkup (XML/jinja/htlm-django/etc.) support
+Plug 'scrooloose/syntastic'           " Syntax checking plugin for Vim
+Plug 'tpope/vim-commentary'           " Comment stuff out
+Plug 'mitsuhiko/vim-sparkup'          " Sparkup (XML/jinja/htlm-django/etc.) support
 
 " --- JavaScript ---
-Plugin 'pangloss/vim-javascript'        " Vastly improved Javascript indentation and syntax support in Vim
+Plug 'pangloss/vim-javascript'        " Vastly improved Javascript indentation and syntax support in Vim
+
+" --- JSX ---
+Plug 'mxw/vim-jsx'                    " React JSX syntax highlighting and indenting for Vim
 
 " --- HTML ---
-Plugin 'othree/html5.vim'               " HTML5 omnicomplete and sytnax
-Plugin 'idanarye/breeze.vim'            " Html navigation like vim-easymotion, tag matching, tag highlighting and DOM navigation
+Plug 'othree/html5.vim'               " HTML5 omnicomplete and sytnax
+Plug 'idanarye/breeze.vim'            " Html navigation like vim-easymotion, tag matching, tag highlighting and DOM navigation
 
 " --- Python ---
-Plugin 'davidhalter/jedi-vim'           " Awesome Python autocompletion with VIM
-Plugin 'klen/python-mode'               " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box
-Plugin 'mitsuhiko/vim-jinja'            " Jinja support for vim
-Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
-Plugin 'hynek/vim-python-pep8-indent'   " PEP8 indent
-Plugin 'jmcantrell/vim-virtualenv'      " Virtualenv support in VIM
+Plug 'davidhalter/jedi-vim'           " Awesome Python autocompletion with VIM
+Plug 'klen/python-mode'               " Vim python-mode. PyLint, Rope, Pydoc, breakpoints from box
+Plug 'mitsuhiko/vim-jinja'            " Jinja support for vim
+Plug 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
+Plug 'hynek/vim-python-pep8-indent'   " PEP8 indent
+Plug 'jmcantrell/vim-virtualenv'      " Virtualenv support in VIM
 
-call vundle#end() " required
-filetype on
-filetype plugin on
-filetype plugin indent on
+call plug#end()
+
+"filetype plugin on
+"filetype plugin indent on
 
 
 "=====================================================
@@ -100,7 +110,6 @@ set listchars=tab:▸\ ,eol:¬
 " Enable Syntax Colors
 " in GUI mode we go with fruity and Monaco 13
 " in CLI mode myterm looks better (fruity is GUI only)
-syntax on
 set background=dark
 colorscheme solarized
 
@@ -132,7 +141,8 @@ set enc=utf-8           " utf-8 default encoding
 set ls=2                " always show status bar
 set incsearch           " incremental search
 set hlsearch            " highlighted search results
-set nu                  " line numbers
+set number relativenumber " reltive line numbers
+set nu rnu              " line numbers
 set scrolloff=5         " keep some more lines for scope
 set showmatch           " show matching brackets/parenthesis
 set matchtime=0         " don't blink when matching
@@ -210,6 +220,14 @@ let g:syntastic_error_symbol = 'X'
 let g:syntastic_style_error_symbol = 'X'
 let g:syntastic_warning_symbol = 'x'
 let g:syntastic_style_warning_symbol = 'x'
+
+" Fuzzy file finder
+noremap <C-p> :Files<CR>
+noremap <Leader>b :Buffers<CR>
+noremap <Leader>h :History<CR>
+
+noremap <Leader>t :BTags<CR>
+noremap <Leader>T :Tags<CR>
 
 "=====================================================
 " Python-mode settings
